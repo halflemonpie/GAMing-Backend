@@ -59,14 +59,11 @@ class Profile(models.Model):
     # recipe object
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=255)
-    email = models.EmailField(max_length=255)
     short_description = models.CharField(max_length=255, blank=True)
     description = models.TextField(blank=True)
     is_mentor = models.BooleanField(default=False)
     skills = models.ManyToManyField('Skill')
     languages = models.ManyToManyField('Language')
-    messages = models.ManyToManyField('Message')
-    schedules = models.ManyToManyField('Schedule')
     image = models.ImageField(null=True, upload_to=profile_image_file_path)
 
     def __str__(self):
@@ -76,7 +73,7 @@ class Profile(models.Model):
 class Skill(models.Model):
     # skill model
     name = models.CharField(max_length=255)
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -84,13 +81,14 @@ class Skill(models.Model):
 class Language(models.Model):
     # language model
     name = models.CharField(max_length=255)
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
 
 class Message(models.Model):
     # message model
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     type = models.CharField(max_length=255)
     sender = models.CharField(max_length=255)
     receiver = models.CharField(max_length=255)
@@ -103,7 +101,7 @@ class Message(models.Model):
 
 class Schedule(models.Model):
     # schedule model
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     description = models.TextField(max_length=500, blank=True)
     start_time = models.DateTimeField()
@@ -115,7 +113,7 @@ class Schedule(models.Model):
 
 class Participant(models.Model):
     name = models.CharField(max_length=255)
-    schedules = models.ForeignKey(Schedule, on_delete=models.CASCADE)
+    event = models.ForeignKey(Schedule, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
