@@ -3,7 +3,7 @@
 ## About
 This is the backend part for General Assembly Mentoring(GAMing), it mainly serves as the API to get data from the database. It has function to create, update, delete, and get user. It also allows the user to create their profiles and update them.
 
-For all the endpoint for this API, please review `http://localhost:8000/api/docs'
+For all the endpoint for this API, please review `http://localhost:8000/api/docs`
 
 ## Create User
 endpoint: http://localhost:8000/api/user/create/
