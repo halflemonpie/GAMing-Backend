@@ -7,51 +7,68 @@ For all the endpoint for this API, please review `/api/docs'
 
 ## Create User
 endpoint: http://localhost:8000/api/user/create/
+
 method : POST
 
 example request body:
+```
 {
   "email": "user9@example.com",
   "password": "test123",
   "full_name": "Test User8"
 } 
+```
 
 successful response:
+
 status code: 201
+```
 {
   "email": "user9@example.com",
   "full_name": "Test User8",
   "messages": [],
   "schedules": []
 }
+```
+
 
 ## Get User Token
 endpoint: http://localhost:8000/api/user/token/
+
 method: POST
 
 example request body:
+```
 {
   "email": "user9@example.com",
   "password": "test123"
 }
+```
 
 successful response:
+
 status code: 200
+```
 {
   "token": "2c722a2ffdf50ba27f8f4ccf0be1a69d1a932636"
 }
+```
 
 ## Use token to login
 Now we have the user token, we can use the token to create profile and update user. Please don't show this token to the user because they can use it to change profile and user setting.
 
 ## Create Profile
 endpoint: http://localhost:8000/api/profile/profiles/
+
 method: POST
 
 add the token in the request header like this:
+```
 'Authorization: Token 2c722a2ffdf50ba27f8f4ccf0be1a69d1a932636'
+```
 
 example request body:
+```
 {
   "full_name": "Test User9",
   "short_description": "Hello, my name is User9. Nice to meet you",
@@ -74,9 +91,12 @@ example request body:
     }
   ]
 }
+```
 
 example successful response:
+
 status code: 201
+```
 {
   "id": 5,
   "user": 10,
@@ -105,18 +125,25 @@ status code: 201
     }
   ]
 }
+```
+
 
 ## Get User Profile
 now we can use the get method to get the user profile list
 
+
 endpoint: http://localhost:8000/api/profile/profiles/
+
 method: GET
+
 
 from now on we need to add the token to every request we make
 
+
 example successful response:
+
 status code: 200
-	
+```
 [
   {
     "id": 5,
@@ -215,13 +242,21 @@ status code: 200
     ]
   }
 ]
+```
+
 
 ### Filter profile
 we can filter the uer profile by adding parameter like this
+
+
 endpoint: http://localhost:8000/api/profile/profiles/?languages=English&skills=html%2Ccss
 
+method: GET
+
 example response:
+
 status code: 200
+```
 [
   {
     "id": 5,
@@ -252,14 +287,18 @@ status code: 200
     ]
   }
 ]
+```
+
 
 ## Update user profile
 we need to have the profile id for updating, in this case we have profile id of 5
 
 endpoint: http://localhost:8000/api/profile/profiles/5/
+
 method: PATCH
 
 example request body(we only need to pass the information that we need to change):
+```
 {
   "full_name": "New Name",
   "is_mentor": false,
@@ -274,9 +313,12 @@ example request body(we only need to pass the information that we need to change
     }
   ]
 }
+```
 
 example successful response:
+
 status code: 200
+```
 {
   "id": 5,
   "user": 10,
@@ -297,12 +339,16 @@ status code: 200
     }
   ]
 }
+```
+
 
 ## Update user with new messages and Schedules
 endpoint: http://localhost:8000/api/user/me/
+
 method: PATCH
 
 example request body:
+```
 {
   "password": "newpassword",
   "full_name": "new name",
@@ -325,12 +371,13 @@ example request body:
     }
   ]
 }
+```
+
 
 example successful response:
+
 status code: 200
-	
-Response body
-Download
+```
 {
   "email": "user9@example.com",
   "full_name": "new name",
@@ -356,3 +403,4 @@ Download
     }
   ]
 }
+```
