@@ -4,7 +4,7 @@ serializers for recipe APIs
 
 from rest_framework import serializers
 
-from core.models import (Profile, Skill, Language, Message, Schedule, Participant)
+from core.models import (Profile, Skill, Language)
 
 
 class SkillSerializer(serializers.ModelSerializer):
@@ -24,34 +24,6 @@ class LanguageSerializer(serializers.ModelSerializer):
         read_only_fields = ['id']
 
 
-class MessageSerializer(serializers.ModelSerializer):
-    # serializer for Messages
-
-    class Meta:
-        model = Message
-        fields = ['id', 'type', 'sender', 'receiver', 'created_time', 'text', 'is_read']
-        read_only_fields = ['id']
-
-
-class ParticipantSerializer(serializers.ModelSerializer):
-    # serializer for participants
-
-    class Meta:
-        model = Participant
-        fields = ['id', 'name', 'event']
-        read_only_fields = ['id', 'event']
-
-
-class ScheduleSerializer(serializers.ModelSerializer):
-    # serializer for schedules
-    participants = ParticipantSerializer(many=True, required=False)
-
-    class Meta:
-        model = Schedule
-        fields = ['id', 'title', 'description', 'start_time', 'end_time', 'participants']
-        read_only_fields = ['id']
-
-
 class ProfileSerializer(serializers.ModelSerializer):
     # serializer for profiles
     skills = SkillSerializer(many=True, required=False)
@@ -59,8 +31,8 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ['id', 'full_name', 'short_description', 'description', 'is_mentor', 'skills', 'languages']
-        read_only_fields = ['id']
+        fields = ['id', 'user', 'full_name', 'short_description', 'description', 'is_mentor', 'skills', 'languages']
+        read_only_fields = ['id', 'user']
 
     def _get_or_create_skills(self, skills, profile):
         # handle getting or creating skills

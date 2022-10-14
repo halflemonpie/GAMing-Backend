@@ -15,7 +15,7 @@ from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
-from core.models import (Profile, Skill, Language, Message, Schedule, Participant)
+from core.models import (Profile, Skill, Language)
 from userprofile import serializers
 
 
@@ -45,7 +45,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
 
     def _params_to_ints(self, qs):
         # convert a list of strings to integers
-        return [int(str_id) for str_id in qs.split(',')]
+        return [str(str_name) for str_name in qs.split(',')]
 
     def get_queryset(self):
         # retrieve recipes for authenticated user
@@ -53,11 +53,11 @@ class ProfileViewSet(viewsets.ModelViewSet):
         languages = self.request.query_params.get('languages')
         queryset = self.queryset
         if skills:
-            skill_ids = self._params_to_ints(skills)
-            queryset = queryset.filter(skills__id__in=skill_ids)
+            skill_names = self._params_to_ints(skills)
+            queryset = queryset.filter(skills__name__in=skill_names)
         if languages:
-            language_ids = self._params_to_ints(languages)
-            queryset = queryset.filter(languages__id__in=language_ids)
+            language_names = self._params_to_ints(languages)
+            queryset = queryset.filter(languages__name__in=language_names)
 
         return queryset.order_by('-id').distinct()
 
@@ -111,7 +111,7 @@ class BaseProfileAttrViewSet(mixins.DestroyModelMixin,
         assigned_only = bool(int(self.request.query_params.get('assigned_only', 0)))
         queryset = self.queryset
         if assigned_only:
-            queryset = queryset.filter(recipe__isnull=False)
+            queryset = queryset.filter(profile__isnull=False)
 
         return queryset.order_by('-name').distinct()
 

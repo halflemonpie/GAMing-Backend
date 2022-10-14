@@ -50,6 +50,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     full_name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    messages = models.ManyToManyField('Message')
+    schedules = models.ManyToManyField('Schedule')
 
     objects = UserManager()
 
@@ -89,7 +91,6 @@ class Language(models.Model):
 
 class Message(models.Model):
     # message model
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     type = models.CharField(max_length=255)
     sender = models.CharField(max_length=255)
     receiver = models.CharField(max_length=255)
@@ -102,20 +103,19 @@ class Message(models.Model):
 
 class Schedule(models.Model):
     # schedule model
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     description = models.TextField(max_length=500, blank=True)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-    participants = models.ManyToManyField('Participant')
+    participants = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
         return self.title
 
-class Participant(models.Model):
-    name = models.CharField(max_length=255)
-    event = models.ForeignKey(Schedule, on_delete=models.CASCADE)
+# class Participant(models.Model):
+#     name = models.CharField(max_length=255)
+#     event = models.ForeignKey(Schedule, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
