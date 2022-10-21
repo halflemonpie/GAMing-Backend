@@ -4,9 +4,8 @@ Serializers for API View
 
 from django.contrib.auth import (get_user_model, authenticate)
 from django.utils.translation import gettext as _
-from numpy import require
 from rest_framework import serializers
-from core.models import (Message, Schedule, User)
+from core.models import (Message, Schedule)
 
 
 class MessageSerializer(serializers.ModelSerializer):
