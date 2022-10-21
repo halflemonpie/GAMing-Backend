@@ -3,10 +3,10 @@
 ## About
 This is the backend part for General Assembly Mentoring(GAMing), it mainly serves as the API to get data from the database. It has function to create, update, delete, and get user. It also allows the user to create their profiles and update them.
 
-For all the endpoint for this API, please review `http://localhost:8000/api/docs`
+For all the endpoint for this API, please review `https://gaming-database.up.railway.app/api/docs/`
 
 ## Create User
-endpoint: http://localhost:8000/api/user/create/
+endpoint: https://gaming-database.up.railway.app/api/user/create/
 
 method : POST
 
@@ -33,7 +33,7 @@ status code: 201
 
 
 ## Get User Token
-endpoint: http://localhost:8000/api/user/token/
+endpoint: https://gaming-database.up.railway.app/api/user/token/
 
 method: POST
 
@@ -58,7 +58,7 @@ status code: 200
 Now we have the user token, we can use the token to create profile and update user. Please don't show this token to the user because they can use it to change profile and user setting.
 
 ## Create Profile
-endpoint: http://localhost:8000/api/profile/profiles/
+endpoint: https://gaming-database.up.railway.app/api/profile/profiles/
 
 method: POST
 
@@ -132,7 +132,7 @@ status code: 201
 now we can use the get method to get the user profile list
 
 
-endpoint: http://localhost:8000/api/profile/profiles/
+endpoint: https://gaming-database.up.railway.app/api/profile/profiles/
 
 method: GET
 
@@ -249,7 +249,7 @@ status code: 200
 we can filter the uer profile by adding parameter like this
 
 
-endpoint: http://localhost:8000/api/profile/profiles/?languages=English&skills=html%2Ccss
+endpoint: https://gaming-database.up.railway.app/api/profile/profiles/?languages=English&skills=html%2Ccss
 
 method: GET
 
@@ -293,7 +293,7 @@ status code: 200
 ## Update user profile
 we need to have the profile id for updating, in this case we have profile id of 5
 
-endpoint: http://localhost:8000/api/profile/profiles/5/
+endpoint: https://gaming-database.up.railway.app/api/profile/profiles/5/
 
 method: PATCH
 
@@ -343,7 +343,7 @@ status code: 200
 
 
 ## Update user with new messages and Schedules
-endpoint: http://localhost:8000/api/user/me/
+endpoint: https://gaming-database.up.railway.app/api/user/me/
 
 method: PATCH
 
@@ -404,3 +404,5 @@ status code: 200
   ]
 }
 ```
+
+then you can use GET method to get the user info at the same endpoint
